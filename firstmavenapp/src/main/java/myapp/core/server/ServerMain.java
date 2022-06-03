@@ -28,21 +28,26 @@ public class ServerMain {
         OutputStream os = sock.getOutputStream();
         DataOutputStream dos = new DataOutputStream(os);
 
-        // Incoming request
-        String request = dis.readUTF();
-
         // Perform computation on request
-        request = request.toUpperCase();
 
-        // Write back to client
-        dos.writeUTF(request);
+        Boolean isOpen = true;
+        while (isOpen) {
+            // Incoming request
+            String request = dis.readUTF().toLowerCase();
+            // Check if request is "exit"
+            if (request.equals("exit")) {
+                // If true, break and close streams + socket
+                is.close();
+                os.close();
+                sock.close();
+                isOpen = false;
+                break;
+            } else {
+                // If false, compute, keep streams and socket open
+                request = request.toUpperCase();
+                dos.writeUTF(request);
+            }
 
-        // Close streams
-        is.close();
-        os.close();
-
-        // Close sockets
-        sock.close();
-
+        }
     }
 }

@@ -25,24 +25,32 @@ public class ClientMain {
         OutputStream os = sock.getOutputStream();
         DataOutputStream dos = new DataOutputStream(os);
 
-        // Enable user input
-        Console cons = System.console();
-        String input = cons.readLine(">> Say Something to the server: \n");
+        Boolean isOpen = true;
+        while (isOpen) {
+            // Enable user input
+            Console cons = System.console();
+            String input = cons.readLine(">> Say Something to the server: \n");
 
-        // Write to the server
-        dos.writeUTF(input);
-        dos.flush(); // To make sure it doesnt get stuck in the internal buffer
+            // Write to the server
+            dos.writeUTF(input);
+            dos.flush(); // To make sure it doesnt get stuck in the internal buffer
 
-        // Read from the server
-        String response = dis.readUTF();
-        System.out.printf(">> %s \n", response);
+            if (input.equals("exit")) {
+                // Close streams
+                is.close();
+                os.close();
 
-        // Close streams
-        is.close();
-        os.close();
+                // Close sockets
+                sock.close();
 
-        // Close sockets
-        sock.close();
+                // Break the loop
+                break;
+            }
+
+            // Read from the server
+            String response = dis.readUTF();
+            System.out.printf(">> %s \n", response);
+        }
 
     }
 }
