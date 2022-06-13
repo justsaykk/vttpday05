@@ -6,7 +6,7 @@
 4. Select version (usually the latest)
 5. Input java package
 6. Select directory
-7. Change maven pom.xml <maven.compiler.source> & <mave.compiler.target> value to current java version (use `java --version` to check)
+7. Change *pom.xml* `<maven.compiler.source>` & `<mave.compiler.target>` value to current java version (use `java --version` to check)
 8. Set classpath using `export CLASSPATH="./target/classes"`
 
 ## Running a Maven Project
