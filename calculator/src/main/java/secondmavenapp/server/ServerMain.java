@@ -68,7 +68,7 @@ public class ServerMain extends InputOutputStream {
                     io.close();
                     break;
                 }
-                
+
                 // Constructing response
                 String response = "The answer for " + split[0] + " " + soperator + " " + split[1] + " is "
                         + Float.toString(result);
